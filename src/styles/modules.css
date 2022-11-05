@@ -1,0 +1,126 @@
+/* NavBar */
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.nav-list {
+  display: flex;
+}
+
+.nav-link {
+  padding: 1em;
+}
+
+.nav-link.active,
+.nav-link:hover {
+  color: #5ece7b;
+  border-bottom: 1px solid #5ece7b;
+}
+
+.nav-options {
+  display: flex;
+}
+.nav-option {
+  padding: 1em;
+}
+
+/* Currency */
+.currency-selector {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  font-weight: 500;
+}
+
+.current-currency {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.currency-list {
+  position: absolute;
+  left: 0;
+  top: 80%;
+
+  width: max-content;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.currency-option {
+  padding: 0.5em 1em;
+  cursor: default;
+}
+.currency-option:hover,
+.currency-option.active {
+  background-color: #eee;
+}
+
+/* Category Name */
+.category-name {
+}
+
+/* Product Cards */
+.products-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-card {
+  padding: 1em;
+  width: max-content;
+}
+
+.product-card:hover {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.product-card img {
+  margin-bottom: 1em;
+}
+
+.product-card .product-title {
+  font-weight: 300;
+  color: #1d1f22;
+  margin-bottom: 0.5em;
+}
+
+.product-card .product-price {
+  font-weight: 500;
+  color: #1d1f22;
+}
+
+/* Drop Select */
+.drop-select {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 3rem;
+
+  font-weight: 500;
+}
+
+.current-selected {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.drop-select .options {
+  position: absolute;
+  left: 0;
+  top: 80%;
+
+  width: max-content;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.drop-select .option {
+  padding: 0.5em 1em;
+  cursor: default;
+}
+.drop-select .option:hover,
+.drop-select .option.active {
+  background-color: #eee;
+}
