@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import image from "../../assets/Product A.png";
 import { fetchProducts } from "../../redux/slices/productsSlice";
 
 class ProductsList extends Component {
@@ -19,11 +18,20 @@ class ProductsList extends Component {
   render() {
     return (
       <div className="products-list">
-        <div className="product-card">
-          <img src={image} alt="" />
-          <p className="product-title">Apollo Running Short</p>
-          <p className="product-price">$ 50.00</p>
-        </div>
+        {this.props.products.map((product) => (
+          <div className="product-wrapper" key={product.id}>
+            <div className={`product-card ${!product.inStock && "disabled"}`}>
+              <div className="image-wrapper">
+                <img src={product.gallery[0]} alt="" />
+              </div>
+              <p className="product-title">{product.name}</p>
+              <p className="product-price">
+                {product.prices[0].currency.symbol}
+                {product.prices[0].amount}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
     );
   }
