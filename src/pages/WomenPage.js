@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import CategoryName from "../components/CategoryName/CategoryName";
 import ProductsList from "../components/ProductsList/ProductsList";
-import { fetchProducts } from "../redux/slices/productsSlice";
+import { fetchProducts, productsActions } from "../redux/slices/productsSlice";
 
 class WomenPage extends Component {
   constructor(props) {
@@ -14,7 +14,11 @@ class WomenPage extends Component {
   }
 
   changeFilter = (newFilter) => {
-    this.setState({ productsFilter: newFilter });
+    const newProducts = this.state.products.filter(
+      (product) => product.category === newFilter
+    );
+
+    this.props.dispatch(fetchProducts(newFilter));
   };
 
   componentDidMount() {

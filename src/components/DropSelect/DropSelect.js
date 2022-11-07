@@ -56,7 +56,10 @@ class DropSelect extends Component {
   render() {
     return (
       <div className="drop-select">
-        <p className="current-selected" onClick={this.toggleOptions}>
+        <p
+          className="current-selected category-name"
+          onClick={this.toggleOptions}
+        >
           {this.state.currentSelected}
         </p>
 

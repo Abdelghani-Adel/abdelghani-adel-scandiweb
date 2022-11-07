@@ -60,7 +60,19 @@
 
 /* Category Name */
 .category-name {
+  font-size: 2rem;
+  text-transform: capitalize;
+  position: relative;
 }
+
+/* .category-name::after {
+  content: ">";
+  position: absolute;
+  bottom: 0;
+  right: -0.9em;
+  margin: 0;
+  transform: rotate(90deg);
+} */
 
 /* Product Cards */
 .products-list {
@@ -159,4 +171,66 @@
 .drop-select .option:hover,
 .drop-select .option.active {
   background-color: #eee;
+}
+
+/* Product Page */
+.product-page {
+  padding: 5%;
+  display: flex;
+}
+
+.pictures-list {
+  width: 8%;
+}
+
+.pictures-list .image-wrapper {
+  height: 10vh;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 5%;
+  display: flex;
+  justify-content: center;
+}
+
+.selected-photo {
+  width: 62%;
+  display: flex;
+  justify-content: center;
+  padding: 5%;
+}
+
+.product-info {
+  width: 30%;
+}
+
+.product-info .product-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+}
+
+.product-attributes .options {
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+.product-attributes .attribute-title {
+  margin-bottom: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.product-attributes .option {
+  border: 1px solid black;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  min-width: 10%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.product-attributes .option.chosen {
+  background-color: #000;
+  color: #fff;
 }
