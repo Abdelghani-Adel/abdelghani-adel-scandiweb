@@ -1,10 +1,22 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import {
+  currencyActions,
+  fetchCurrencies,
+} from "../../redux/slices/currencies";
 
 class Currency extends Component {
-  state = {
-    currentCurrency: "$",
-    listIsShown: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentCurrency: this.props.currentCurrency,
+      listIsShown: false,
+    };
+  }
+
+  componentDidMount() {
+    this.props.dispatch(fetchCurrencies());
+  }
 
   showOptions = () => {
     this.setState({
@@ -18,6 +30,8 @@ class Currency extends Component {
       currentCurrency: value,
       listIsShown: false,
     });
+
+    this.props.dispatch(currencyActions.changeCurrency(value));
   };
 
   render() {
@@ -29,24 +43,15 @@ class Currency extends Component {
 
         {this.state.listIsShown && (
           <ul className="currency-list">
-            <li
-              className="currency-option"
-              onClick={this.changeCurrency.bind(this, "$")}
-            >
-              $ USD
-            </li>
-            <li
-              className="currency-option"
-              onClick={this.changeCurrency.bind(this, "€")}
-            >
-              € EUR
-            </li>
-            <li
-              className="currency-option"
-              onClick={this.changeCurrency.bind(this, "¥")}
-            >
-              ¥ JPY
-            </li>
+            {this.props.currencies.map((currency) => (
+              <li
+                className="currency-option"
+                key={currency.symbol}
+                onClick={this.changeCurrency.bind(this, currency.symbol)}
+              >
+                {currency.symbol} {currency.label}
+              </li>
+            ))}
           </ul>
         )}
       </li>
@@ -54,4 +59,9 @@ class Currency extends Component {
   }
 }
 
-export default Currency;
+const mapStateToProps = (state) => ({
+  currentCurrency: state.currency.currentCurrency,
+  currencies: state.currency.currencies,
+});
+
+export default connect(mapStateToProps)(Currency);
