@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import CartIcon from "../../assets/cart.svg";
 import Currency from "./Currency";
+import NavCart from "./NavCart";
 
 class NavOptions extends Component {
   state = {};
@@ -8,9 +8,7 @@ class NavOptions extends Component {
     return (
       <ul className="nav-options">
         <Currency />
-        <li className="nav-option">
-          <img src={CartIcon} alt="" />
-        </li>
+        <NavCart />
       </ul>
     );
   }

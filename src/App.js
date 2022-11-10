@@ -1,7 +1,8 @@
 import { Route, Routes, Redirect, Navigate } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
-import ProductPage from "./components/ProductPage/ProductPage";
+import CartPage from "./pages/CartPage/CartPage";
+import ProductPage from "./pages/ProductPage/ProductPage";
 import WomenPage from "./pages/WomenPage";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/men" element={<h2>Men</h2>} />
         <Route path="/kids" element={<h2>Kids</h2>} />
         <Route path="/product/:id" element={<ProductPage />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
     </div>
   );

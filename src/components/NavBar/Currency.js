@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { cartActions, fetchCartCurrencies } from "../../redux/slices/cart";
 import {
   currencyActions,
   fetchCurrencies,
@@ -32,6 +33,7 @@ class Currency extends Component {
     });
 
     this.props.dispatch(currencyActions.changeCurrency(value));
+    this.props.dispatch(cartActions.changeCurrency(value));
   };
 
   render() {

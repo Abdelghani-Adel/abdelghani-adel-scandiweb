@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
 import ProductPrice from "./ProductPrice";
+import cartIcon from "../../assets/cartWhite.png";
 
 class ProductCard extends Component {
   constructor(props) {
@@ -10,7 +11,17 @@ class ProductCard extends Component {
 
   state = {
     navigate: null,
+    existInCart: false,
   };
+
+  componentDidMount() {
+    const item = this.props.cartItems.findIndex(
+      (item) => item.id === this.props.product.id
+    );
+    if (item !== -1) {
+      this.setState({ ...this.state, existInCart: true });
+    }
+  }
 
   render() {
     const product = this.props.product;
@@ -26,6 +37,11 @@ class ProductCard extends Component {
           <div className={`product-card ${!product.inStock && "disabled"}`}>
             <div className="image-wrapper">
               <img src={product.gallery[0]} alt="" />
+              {this.state.existInCart && (
+                <span className="icon-wrapper">
+                  <img src={cartIcon} alt="" />
+                </span>
+              )}
             </div>
             <p className="product-title">{product.name}</p>
             <ProductPrice prices={product.prices} />
@@ -36,4 +52,8 @@ class ProductCard extends Component {
   }
 }
 
-export default connect()(ProductCard);
+const mapStateToProps = (state) => ({
+  cartItems: state.cart.items,
+});
+
+export default connect(mapStateToProps)(ProductCard);
