@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { cartActions } from "../../redux/slices/cart";
+import { cartActions } from "../redux/slices/cart";
 
 class ItemAttributes extends Component {
   constructor(props) {

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import ProductAttributes from "../../components/ProductAttributes/ProductAttributes";
 import { cartActions } from "../../redux/slices/cart";
-import ItemAttributes from "./ItemAttributes";
+import CartItemsList from "./CartItemsList";
 
 class CartPage extends Component {
   constructor(props) {
@@ -10,9 +11,10 @@ class CartPage extends Component {
   render() {
     const changeAmount = (e) => {
       const id = e.currentTarget.dataset.id;
+      const index = e.currentTarget.dataset.index;
       const action = e.currentTarget.dataset.action;
 
-      let item = this.props.cart.items.find((item) => item.id === id);
+      let item = this.props.cart.items[index];
 
       if (item.amount == 1 && action === "-") {
         this.props.dispatch(cartActions.removeItem(item));
@@ -33,67 +35,31 @@ class CartPage extends Component {
       <div className="cart-page">
         <h2>Cart</h2>
 
-        {this.props.cart.items.map((item) => (
-          <div className="cart-item" key={Math.random()}>
-            <div>
-              <p className="item-brand">{item.brand}</p>
-              <p className="item-name">{item.name}</p>
-              <p className="item-price">
-                {item.price.currency.symbol}
-                {item.price.amount}
-              </p>
+        <CartItemsList items={this.props.cart.items} />
 
-              <ItemAttributes item={item} />
-            </div>
-
-            <div>
-              <div className="amount-picture">
-                <span className="plus-minus">
-                  <button
-                    className="plus"
-                    data-id={item.id}
-                    data-action="+"
-                    onClick={changeAmount}
-                  >
-                    +
-                  </button>
-                  <span className="amount">{item.amount}</span>
-                  <button
-                    className="minus"
-                    data-id={item.id}
-                    data-action="-"
-                    onClick={changeAmount}
-                  >
-                    -
-                  </button>
-                </span>
-                <div className="product-picture">
-                  <img src={item.gallery[0]} />
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
         <div className="checkout">
-          <div className="left">
-            <p>Tax 21%:</p>
-            <p>Quantity:</p>
-            <p>Total: </p>
+          <div className="checkout-info">
+            <div className="left">
+              <p>Tax 21%:</p>
+              <p>Quantity:</p>
+              <p>Total: </p>
+            </div>
+            <div className="right">
+              <p>
+                {this.props.cart.currentCurrency}{" "}
+                {((this.props.cart.totalAmount * 21) / 100).toFixed(2)}
+              </p>
+              <p>{this.props.cart.itemsAmount}</p>
+              <p>
+                {this.props.cart.currentCurrency}{" "}
+                {(
+                  this.props.cart.totalAmount +
+                  (this.props.cart.totalAmount * 21) / 100
+                ).toFixed(2)}
+              </p>
+            </div>
           </div>
-          <div className="right">
-            <p>
-              {this.props.cart.currentCurrency}{" "}
-              {((this.props.cart.totalAmount * 21) / 100).toFixed(2)}
-            </p>
-            <p>{this.props.cart.itemsAmount}</p>
-            <p>
-              {this.props.cart.currentCurrency}{" "}
-              {(
-                this.props.cart.totalAmount +
-                (this.props.cart.totalAmount * 21) / 100
-              ).toFixed(2)}
-            </p>
-          </div>
+          <button className="order-btn">order</button>
         </div>
       </div>
     );

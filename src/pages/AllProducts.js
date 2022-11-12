@@ -4,7 +4,7 @@ import CategoryName from "../components/CategoryName/CategoryName";
 import ProductsList from "../components/ProductsList/ProductsList";
 import { fetchProducts, productsActions } from "../redux/slices/productsSlice";
 
-class WomenPage extends Component {
+class AllProducts extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,4 +42,4 @@ const mapStateToProps = (state) => ({
   products: state.products,
 });
 
-export default connect(mapStateToProps)(WomenPage);
+export default connect(mapStateToProps)(AllProducts);

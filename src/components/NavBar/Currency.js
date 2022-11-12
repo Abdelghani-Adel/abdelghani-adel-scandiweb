@@ -45,15 +45,18 @@ class Currency extends Component {
 
         {this.state.listIsShown && (
           <ul className="currency-list">
-            {this.props.currencies.map((currency) => (
-              <li
-                className="currency-option"
-                key={currency.symbol}
-                onClick={this.changeCurrency.bind(this, currency.symbol)}
-              >
-                {currency.symbol} {currency.label}
-              </li>
-            ))}
+            {this.props.currencies.map((currency) => {
+              const choosen = currency.symbol === this.props.currentCurrency;
+              return (
+                <li
+                  className={`currency-option ${choosen && "active"}`}
+                  key={currency.symbol}
+                  onClick={this.changeCurrency.bind(this, currency.symbol)}
+                >
+                  {currency.symbol} {currency.label}
+                </li>
+              );
+            })}
           </ul>
         )}
       </li>

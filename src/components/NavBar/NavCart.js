@@ -1,31 +1,40 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
 import CartIcon from "../../assets/cart.svg";
+import MiniCart from "../../pages/CartPage/MiniCart";
+import { cartActions } from "../../redux/slices/cart";
+import Portal from "../Portal/portal";
 
 class NavCart extends Component {
   constructor(props) {
     super(props);
   }
 
-  state = {
-    navigate: null,
-  };
-
   render() {
-    const navigateHandler = () => {
-      this.setState({ navigate: true });
+    const cartIsShown = this.props.cart.cartIsShown;
+    const closePortal = () => {
+      this.props.dispatch(cartActions.closePortal());
+    };
+
+    const toggleMinicart = () => {
+      this.props.dispatch(cartActions.togglePortal());
     };
     return (
       <>
-        {this.state.navigate && <Navigate to="/cart" />}
-        <li className="nav-option nav-cart">
-          <Link to="/cart">
+        {cartIsShown && (
+          <Portal
+            component={<MiniCart closePortal={closePortal} />}
+            closePortal={closePortal}
+          />
+        )}
+
+        <li className="nav-option nav-cart" onClick={toggleMinicart}>
+          <div>
             <img src={CartIcon} alt="" />
             <span className="nav-cart-amount">
               <span>{this.props.cart.itemsAmount}</span>
             </span>
-          </Link>
+          </div>
         </li>
       </>
     );

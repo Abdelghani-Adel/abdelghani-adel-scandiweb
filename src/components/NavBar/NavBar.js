@@ -7,7 +7,7 @@ class NavBar extends React.Component {
   render() {
     return (
       <nav className="nav-bar">
-        <NavList links={["women", "men", "kids"]} />
+        <NavList links={["all", "clothes", "tech"]} />
         <NavOptions />
       </nav>
     );

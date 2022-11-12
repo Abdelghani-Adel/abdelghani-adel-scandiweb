@@ -29,6 +29,7 @@ const cartSlice = createSlice({
     currentCurrency: "$",
     itemsAmount: 0,
     totalAmount: 0,
+    cartIsShown: false,
   },
   reducers: {
     editItem(state, action) {
@@ -159,6 +160,18 @@ const cartSlice = createSlice({
         currentCurrency: action.payload,
         itemsAmount: state.itemsAmount,
         totalAmount: totalAmount,
+      };
+    },
+    togglePortal: (state, action) => {
+      return {
+        ...state,
+        cartIsShown: !state.cartIsShown,
+      };
+    },
+    closePortal: (state, action) => {
+      return {
+        ...state,
+        cartIsShown: false,
       };
     },
   },

@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 import { cartActions } from "../../redux/slices/cart";
 import ProductPrice from "../../components/ProductsList/ProductPrice";
 import PicturesList from "./PicturesList";
-import ProductAttributes from "./ProductAttributes";
-import { fetchProducts } from "../../redux/slices/productsSlice";
+import ProductAttributes from "../../components/ProductAttributes/ProductAttributes";
 
 class ProductPage extends Component {
   constructor(props) {
@@ -29,12 +28,10 @@ class ProductPage extends Component {
   };
 
   // Handling active class on other attribute options
-  chooseAttribute = (e) => {
-    const dataset = e.currentTarget.dataset.type;
-    const options = document.querySelectorAll(
-      `[data-type="${String(dataset)}"]`
-    );
-    // const options = document.querySelectorAll(".option");
+  selectAttribute = (e) => {
+    const type = e.currentTarget.dataset.type;
+    const options = document.querySelectorAll(`[data-type="${String(type)}"]`);
+
     [...options].forEach((option) => option.classList.remove("active"));
     e.currentTarget.classList.add("active");
   };
@@ -48,8 +45,6 @@ class ProductPage extends Component {
     const product = this.props.products.find(
       (product) => product.id === productID
     );
-
-    console.log(Math.ceil(5.55));
 
     const addToCartHandler = () => {
       if (!this.state.validOrder) {
@@ -103,8 +98,7 @@ class ProductPage extends Component {
 
           <ProductAttributes
             attributes={product.attributes}
-            chooseColorHandler={this.chooseColorHandler}
-            chooseAttribute={this.chooseAttribute}
+            selectAttribute={this.selectAttribute}
           />
 
           <div className="product-price">
