@@ -6,6 +6,11 @@ const findItem = (state, product) => {
   let itemPrice = product.prices.find(
     (price) => price.currency.symbol === state.currentCurrency
   );
+
+  // if (Object.keys(product.attributesValues).length === 0) {
+  //   foundProduct = product;
+  //   index = state.items.findIndex((element) => element.id === product.id);
+  // }
   try {
     index = state.items.findIndex((element) => {
       if (element.id === product.id) {
@@ -13,6 +18,10 @@ const findItem = (state, product) => {
           JSON.stringify(element.attributesValues) ===
           JSON.stringify(product.attributesValues)
         ) {
+          return element;
+        }
+
+        if (Object.keys(element.attributesValues).length === 0) {
           return element;
         }
       }

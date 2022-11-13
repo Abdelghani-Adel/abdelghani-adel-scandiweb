@@ -5,6 +5,7 @@ import {
   currencyActions,
   fetchCurrencies,
 } from "../../redux/slices/currencies";
+import OutsideAlerter from "../OutsideAlerter/OutsideAlerter";
 
 class Currency extends Component {
   constructor(props) {
@@ -36,6 +37,10 @@ class Currency extends Component {
     this.props.dispatch(cartActions.changeCurrency(value));
   };
 
+  clickOutsideHandler = () => {
+    this.setState({ ...this.state, listIsShown: false });
+  };
+
   render() {
     return (
       <li className="nav-option currency-selector">
@@ -43,22 +48,24 @@ class Currency extends Component {
           {this.state.currentCurrency}
         </p>
 
-        {this.state.listIsShown && (
-          <ul className="currency-list">
-            {this.props.currencies.map((currency) => {
-              const choosen = currency.symbol === this.props.currentCurrency;
-              return (
-                <li
-                  className={`currency-option ${choosen && "active"}`}
-                  key={currency.symbol}
-                  onClick={this.changeCurrency.bind(this, currency.symbol)}
-                >
-                  {currency.symbol} {currency.label}
-                </li>
-              );
-            })}
-          </ul>
-        )}
+        <OutsideAlerter alertFunction={this.clickOutsideHandler}>
+          {this.state.listIsShown && (
+            <ul className="currency-list">
+              {this.props.currencies.map((currency) => {
+                const choosen = currency.symbol === this.props.currentCurrency;
+                return (
+                  <li
+                    className={`currency-option ${choosen && "active"}`}
+                    key={currency.symbol}
+                    onClick={this.changeCurrency.bind(this, currency.symbol)}
+                  >
+                    {currency.symbol} {currency.label}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </OutsideAlerter>
       </li>
     );
   }

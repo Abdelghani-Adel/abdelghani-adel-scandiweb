@@ -4,6 +4,7 @@ import { cartActions } from "../../redux/slices/cart";
 import ProductPrice from "../../components/ProductsList/ProductPrice";
 import PicturesList from "./PicturesList";
 import ProductAttributes from "../../components/ProductAttributes/ProductAttributes";
+import { fetchProduct } from "../../helper/fetchAPI";
 
 class ProductPage extends Component {
   constructor(props) {
@@ -11,10 +12,23 @@ class ProductPage extends Component {
   }
 
   state = {
-    // selecting which photo is shown in the big area based on its index in the gallery array
     selectedPhoto: 0,
     validOrder: null,
   };
+
+  componentDidMount() {
+    const urlParts = window.location.href.split("/");
+    const productID = urlParts[urlParts.length - 1];
+    const fetchApi = async () => {
+      const product = await fetchProduct(productID);
+
+      this.setState({
+        ...this.state,
+        product: product,
+      });
+    };
+    fetchApi();
+  }
 
   changeImageHandler = (e) => {
     this.setState({ selectedPhoto: e });
@@ -37,14 +51,7 @@ class ProductPage extends Component {
   };
 
   render() {
-    // Selecting the product id out from the url params
-    const urlParts = window.location.href.split("/");
-    // The product id always will be the last item in the array of urlParts that we've created
-    const productID = urlParts[urlParts.length - 1];
-    // Expecting the products array through the props to select the current product based on the ID
-    const product = this.props.products.find(
-      (product) => product.id === productID
-    );
+    const product = this.state.product;
 
     const addToCartHandler = () => {
       if (!this.state.validOrder) {
@@ -74,7 +81,7 @@ class ProductPage extends Component {
       // of the product object in some tasks like selecting the price based on the selected currency
       const productObject = {
         amount: 1,
-        ...product,
+        ...this.state.product,
         attributesValues: { ...attributesValues },
       };
 
@@ -83,44 +90,53 @@ class ProductPage extends Component {
     };
 
     return (
-      <div className="product-page">
-        <PicturesList
-          gallery={product.gallery}
-          changeImageHandler={this.changeImageHandler}
-        />
+      // <div>{this.state.product.id}</div>
+      <>
+        {product && (
+          <div className="product-page">
+            <PicturesList
+              gallery={product.gallery}
+              changeImageHandler={this.changeImageHandler}
+            />
 
-        <div className="selected-photo">
-          <img src={product.gallery[this.state.selectedPhoto]} alt="" />
-        </div>
+            <div className="selected-photo">
+              <img src={product.gallery[this.state.selectedPhoto]} alt="" />
+            </div>
 
-        <div className="product-info">
-          <div className="product-name">{product.name}</div>
+            <div className="product-info">
+              <div className="product-name">
+                {product.brand} {product.name}
+              </div>
 
-          <ProductAttributes
-            attributes={product.attributes}
-            selectAttribute={this.selectAttribute}
-          />
+              <ProductAttributes
+                attributes={product.attributes}
+                selectAttribute={this.selectAttribute}
+              />
 
-          <div className="product-price">
-            <p className="attribute-title">PRICE:</p>
-            <ProductPrice prices={product.prices} />
+              <div className="product-price">
+                <p className="attribute-title">PRICE:</p>
+                <ProductPrice prices={product.prices} />
+              </div>
+
+              <div className="button-wrapper">
+                <button onClick={addToCartHandler} disabled={!product.inStock}>
+                  {product.inStock ? "Add To Cart" : "Out of stock"}
+                </button>
+                {this.state.validOrder == false && (
+                  <span className="valid-error">
+                    Options need to be choosen!
+                  </span>
+                )}
+              </div>
+
+              <div
+                className="product-description"
+                dangerouslySetInnerHTML={{ __html: product.description }}
+              ></div>
+            </div>
           </div>
-
-          <div className="button-wrapper">
-            <button onClick={addToCartHandler} disabled={!product.inStock}>
-              {product.inStock ? "Add To Cart" : "Out of stock"}
-            </button>
-            {this.state.validOrder == false && (
-              <span className="valid-error">Options need to be choosen!</span>
-            )}
-          </div>
-
-          <div
-            className="product-description"
-            dangerouslySetInnerHTML={{ __html: product.description }}
-          ></div>
-        </div>
-      </div>
+        )}
+      </>
     );
   }
 }

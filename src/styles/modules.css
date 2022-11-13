@@ -6,6 +6,12 @@
   flex-direction: row;
   justify-content: space-between;
   height: 7vh;
+  width: 90vw;
+
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  background-color: #fff;
 }
 .nav-list {
   display: flex;
@@ -88,6 +94,12 @@
   font-size: 2rem;
   text-transform: capitalize;
   position: relative;
+}
+
+/* ////////////////////////  Content Area  ////////////////////// */
+.content-area {
+  padding-top: 7vh;
+  padding-bottom: 3vh;
 }
 
 /* /////////////////////////////////////////////////////////////// */
@@ -335,6 +347,8 @@
   right: 0;
 
   width: 25vw;
+  max-height: 70vh;
+  overflow: auto;
   padding: 1vw;
   margin-right: 4vw;
   z-index: 3;

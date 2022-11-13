@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import CategoryName from "../components/CategoryName/CategoryName";
 import ProductsList from "../components/ProductsList/ProductsList";
+import { fetchCategory } from "../helper/fetchAPI";
 import { fetchProducts, productsActions } from "../redux/slices/productsSlice";
 
 class AllProducts extends Component {
@@ -9,31 +10,50 @@ class AllProducts extends Component {
     super(props);
     this.state = {
       productsFilter: "all",
-      products: this.props.products,
     };
   }
 
   changeFilter = (newFilter) => {
-    const newProducts = this.state.products.filter(
-      (product) => product.category === newFilter
-    );
+    const fetchapi = async () => {
+      const { products, categoryName } = await fetchCategory(newFilter);
 
-    this.props.dispatch(fetchProducts(newFilter));
+      this.setState({
+        ...this.state,
+        products: products,
+        categoryName: categoryName,
+      });
+    };
+
+    fetchapi();
   };
 
   componentDidMount() {
-    this.props.dispatch(fetchProducts());
+    const fetchapi = async () => {
+      const { products, categoryName } = await fetchCategory("all");
+
+      this.setState({
+        ...this.state,
+        products: products,
+        categoryName: categoryName,
+      });
+    };
+
+    fetchapi();
   }
 
   render() {
     return (
-      <div>
-        <CategoryName changeFilter={this.changeFilter} />
-        <ProductsList
-          products={this.props.products}
-          productsFilter={this.state.productsFilter}
-        />
-      </div>
+      <>
+        {this.state.products && (
+          <div>
+            <CategoryName changeFilter={this.changeFilter} />
+            <ProductsList
+              products={this.state.products}
+              productsFilter={this.state.productsFilter}
+            />
+          </div>
+        )}
+      </>
     );
   }
 }
