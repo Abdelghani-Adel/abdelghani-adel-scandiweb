@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import CartIcon from "../../assets/cart.svg";
-import MiniCart from "../../pages/CartPage/MiniCart";
-import { cartActions } from "../../redux/slices/cart";
-import Portal from "../Portal/portal";
+import CartIcon from "../../../../assets/cart.svg";
+import MiniCart from "../../../../pages/CartPage/MiniCart";
+import { cartActions } from "../../../../redux/slices/cart";
+import Portal from "../../../Portal/portal";
 
 class NavCart extends Component {
   constructor(props) {
@@ -11,7 +11,9 @@ class NavCart extends Component {
   }
 
   render() {
-    const cartIsShown = this.props.cart.cartIsShown;
+    const cartIsShown = this.props.cart.cartIsShown; // from redux store
+    const amount = this.props.cart.itemsAmount;
+
     const closePortal = () => {
       this.props.dispatch(cartActions.closePortal());
     };
@@ -19,6 +21,7 @@ class NavCart extends Component {
     const toggleMinicart = () => {
       this.props.dispatch(cartActions.togglePortal());
     };
+
     return (
       <>
         {cartIsShown && (
@@ -30,10 +33,8 @@ class NavCart extends Component {
 
         <li className="nav-option nav-cart" onClick={toggleMinicart}>
           <div>
-            <img src={CartIcon} alt="" />
-            <span className="nav-cart-amount">
-              <span>{this.props.cart.itemsAmount}</span>
-            </span>
+            <img src={CartIcon} alt="Cart Icon" />
+            <span className="nav-cart-amount">{amount}</span>
           </div>
         </li>
       </>

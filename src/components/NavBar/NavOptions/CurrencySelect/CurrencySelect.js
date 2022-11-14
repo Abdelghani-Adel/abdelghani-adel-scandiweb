@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchCurrencies } from "../../../helper/fetchAPI";
-import { cartActions } from "../../../redux/slices/cart";
+import { fetchCurrencies } from "../../../../helper/fetchAPI";
+import { cartActions } from "../../../../redux/slices/cart";
 // import {
 //   currencyActions,
 //   fetchCurrencies,
 // } from "../../../redux/slices/currencies";
-import OutsideAlerter from "../../OutsideAlerter/OutsideAlerter";
+import OutsideAlerter from "../../../OutsideAlerter/OutsideAlerter";
 import CurrencyList from "./CurrencyList";
+
+import downArrow from "../../../../assets/arrow-down.svg";
+import upArrow from "../../../.././assets/arrow-up.svg";
 
 class CurrencySelect extends Component {
   constructor(props) {
@@ -15,6 +18,7 @@ class CurrencySelect extends Component {
     this.state = {
       currencies: [],
       listIsShown: false,
+      arrow: true,
     };
   }
 
@@ -34,8 +38,9 @@ class CurrencySelect extends Component {
   // Toggling the displaying of currencies list
   toggleOptions = () => {
     this.setState((state) => ({
-      ...this.state,
+      ...state,
       listIsShown: !state.listIsShown,
+      arrow: !state.arrow,
     }));
   };
 
@@ -43,6 +48,7 @@ class CurrencySelect extends Component {
   changeCurrency = (value) => {
     this.setState({
       listIsShown: false,
+      arrow: true,
     });
 
     // Change the currenct currency in the cart redux state
@@ -50,26 +56,28 @@ class CurrencySelect extends Component {
   };
 
   clickOutsideHandler = () => {
-    this.setState({ ...this.state, listIsShown: false });
+    this.setState({ ...this.state, listIsShown: false, arrow: true });
   };
 
   render() {
+    const arrowDown = this.state.arrow;
     return (
-      <li className="nav-option currency-selector">
-        <p className="current-currency" onClick={this.toggleOptions}>
-          {this.props.currentCurrency}
-        </p>
+      <OutsideAlerter alertFunction={this.clickOutsideHandler}>
+        <li className="nav-option currency-selector">
+          <p className="current-currency" onClick={this.toggleOptions}>
+            <span>{this.props.currentCurrency}</span>
+            <img src={arrowDown ? downArrow : upArrow} />
+          </p>
 
-        {this.state.listIsShown && (
-          <OutsideAlerter alertFunction={this.clickOutsideHandler}>
+          {this.state.listIsShown && (
             <CurrencyList
               currencies={this.state.currencies}
               currentCurrency={this.props.currentCurrency}
               changeCurrency={this.changeCurrency}
             />
-          </OutsideAlerter>
-        )}
-      </li>
+          )}
+        </li>
+      </OutsideAlerter>
     );
   }
 }

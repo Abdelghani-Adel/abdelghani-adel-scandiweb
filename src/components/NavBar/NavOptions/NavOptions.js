@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CurrencySelect from "./CurrencySelect/CurrencySelect";
-import NavCart from "./NavCart";
+import NavCart from "./NavCart/NavCart";
 
 class NavOptions extends Component {
   render() {

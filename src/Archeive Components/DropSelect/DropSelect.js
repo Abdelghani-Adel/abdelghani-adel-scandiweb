@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { fetchCategories } from "../../helper/fetchAPI";
 
 class DropSelect extends Component {
   constructor(props) {
@@ -34,23 +35,17 @@ class DropSelect extends Component {
   };
 
   componentDidMount() {
-    fetch("http://localhost:4000", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        query: `
-          query {
-            categories {
-              name
-            }
-          }
-        `,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ ...this.state, categories: data.data.categories });
-      });
+    const fetchAPI = async () => {
+      const categories = await fetchCategories();
+
+      let categoryNames = [];
+      categories.map((category) => categoryNames.push(category.name));
+
+      // Storing categories in local state
+      this.setState({ ...this.state, categories: categories });
+    };
+
+    fetchAPI();
   }
 
   render() {

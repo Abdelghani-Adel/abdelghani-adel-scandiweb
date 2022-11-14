@@ -12,13 +12,17 @@ class ProductPage extends Component {
   }
 
   state = {
-    selectedPhoto: 0,
+    selectedPhoto: 0, // Control which picture is shown in the main area
     validOrder: null,
   };
 
   componentDidMount() {
+    // Pulling out the product ID from the url
     const urlParts = window.location.href.split("/");
     const productID = urlParts[urlParts.length - 1];
+
+    // Fetching the product from the API using the product ID
+    // Store the product in the local state to be used in rendering
     const fetchApi = async () => {
       const product = await fetchProduct(productID);
 
@@ -30,12 +34,12 @@ class ProductPage extends Component {
     fetchApi();
   }
 
-  changeImageHandler = (e) => {
+  selectImage = (e) => {
     this.setState({ selectedPhoto: e });
   };
 
   // Handling active class on color options
-  chooseColorHandler = (e) => {
+  selectColor = (e) => {
     const colors = document.querySelectorAll(".swatch-option");
     [...colors].forEach((color) => color.classList.remove("active"));
     e.currentTarget.classList.add("active");
@@ -90,23 +94,24 @@ class ProductPage extends Component {
     };
 
     return (
-      // <div>{this.state.product.id}</div>
       <>
         {product && (
           <div className="product-page">
             <PicturesList
               gallery={product.gallery}
-              changeImageHandler={this.changeImageHandler}
+              changeImageHandler={this.selectImage}
             />
 
             <div className="selected-photo">
-              <img src={product.gallery[this.state.selectedPhoto]} alt="" />
+              <img
+                src={product.gallery[this.state.selectedPhoto]}
+                alt="Product Image"
+              />
             </div>
 
             <div className="product-info">
-              <div className="product-name">
-                {product.brand} {product.name}
-              </div>
+              <div className="product-brand">{product.brand}</div>
+              <div className="product-name">{product.name}</div>
 
               <ProductAttributes
                 attributes={product.attributes}

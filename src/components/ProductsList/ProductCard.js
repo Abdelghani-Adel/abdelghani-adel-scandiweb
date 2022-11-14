@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import ProductPrice from "./ProductPrice";
 import cartIcon from "../../assets/cartWhite.png";
 import { cartActions } from "../../redux/slices/cart";
+import { connect } from "react-redux";
+import AddFromPLP from "./AddFromPLP";
+import ProductImage from "./ProductImage";
 
 class ProductCard extends Component {
   constructor(props) {
@@ -17,24 +19,19 @@ class ProductCard extends Component {
   render() {
     const product = this.props.product;
 
-    // Will be true only the product is in stock and don't have any attributes
+    // Will be true only if the product is in stock and don't have any attributes
     // because the user cannot add an item to the cart without selected attributes
-    let canAddFromPLP;
-    if (product.inStock && product.attributes.length < 1) {
-      canAddFromPLP = true;
-    }
+    const addFromPLP = product.inStock && product.attributes.length < 1;
 
-    const navigateHandler = (e) => {
-      if (
-        e.target.classList.contains("icon-wrapper") ||
-        e.target.classList.contains("cart-icon")
-      ) {
-        return;
-      }
+    const navigateHandler = () => {
       this.setState({ navigate: true });
     };
 
-    const addToCartHandler = () => {
+    const addToCartHandler = (e) => {
+      // Because the parent has a click handler that will navigate the user to the PDP
+      e.stopPropagation();
+
+      // Preparing the product object to be dispatched and stored into Redux
       const productObject = {
         amount: 1,
         ...product,
@@ -43,25 +40,24 @@ class ProductCard extends Component {
       this.props.dispatch(cartActions.addItem(productObject));
     };
 
+    const cardClassNames = `product-card ${!product.inStock && "disabled"}`;
+
     return (
       <>
         {this.state.navigate && <Navigate to={`/product/${product.id}`} />}
+
         <div className="product-wrapper">
-          <div
-            className={`product-card ${!product.inStock && "disabled"}`}
-            onClick={navigateHandler}
-          >
-            <div className="image-wrapper">
-              <img src={product.gallery[0]} alt="" />
-              {canAddFromPLP && (
-                <span className="icon-wrapper" onClick={addToCartHandler}>
-                  <img src={cartIcon} className="cart-icon" />
-                </span>
-              )}
-            </div>
+          <div className={cardClassNames} onClick={navigateHandler}>
+            <ProductImage
+              image={product.gallery[0]}
+              addToCartHandler={addToCartHandler}
+              addFromPLP={addFromPLP}
+            />
+
             <p className="product-title">
               {product.brand} {product.name}
             </p>
+
             <ProductPrice prices={product.prices} />
           </div>
         </div>
@@ -70,8 +66,4 @@ class ProductCard extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  cartItems: state.cart.items,
-});
-
-export default connect(mapStateToProps)(ProductCard);
+export default connect()(ProductCard);

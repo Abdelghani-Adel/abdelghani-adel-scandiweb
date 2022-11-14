@@ -1,43 +1,28 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import CategoryName from "../components/CategoryName/CategoryName";
+import CategoryFilter from "../components/CategoryFilter/CategoryFilter";
 import ProductsList from "../components/ProductsList/ProductsList";
 import { fetchCategory } from "../helper/fetchAPI";
 
 class AllProducts extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      productsFilter: "all",
-    };
+    this.state = {};
   }
 
+  fetchProducts = async (productsFilter = "all") => {
+    const { products, categoryName } = await fetchCategory(productsFilter);
+    this.setState({
+      products: products,
+      categoryName: categoryName,
+    });
+  };
+
   changeFilter = (newFilter) => {
-    const fetchapi = async () => {
-      const { products, categoryName } = await fetchCategory(newFilter);
-
-      this.setState({
-        ...this.state,
-        products: products,
-        categoryName: categoryName,
-      });
-    };
-
-    fetchapi();
+    this.fetchProducts(newFilter);
   };
 
   componentDidMount() {
-    const fetchapi = async () => {
-      const { products, categoryName } = await fetchCategory("all");
-
-      this.setState({
-        ...this.state,
-        products: products,
-        categoryName: categoryName,
-      });
-    };
-
-    fetchapi();
+    this.fetchProducts();
   }
 
   render() {
@@ -45,11 +30,8 @@ class AllProducts extends Component {
       <>
         {this.state.products && (
           <div>
-            <CategoryName changeFilter={this.changeFilter} />
-            <ProductsList
-              products={this.state.products}
-              productsFilter={this.state.productsFilter}
-            />
+            <CategoryFilter changeFilter={this.changeFilter} />
+            <ProductsList products={this.state.products} />
           </div>
         )}
       </>
@@ -57,8 +39,4 @@ class AllProducts extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  products: state.products,
-});
-
-export default connect(mapStateToProps)(AllProducts);
+export default AllProducts;

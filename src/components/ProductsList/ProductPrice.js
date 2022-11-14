@@ -7,9 +7,11 @@ class ProductPrice extends Component {
   }
 
   render() {
+    const currentCurrency = this.props.currentCurrency;
     const prices = this.props.prices;
+
     const price = prices.find(
-      (price) => price.currency.symbol == this.props.currentCurrency
+      (price) => price.currency.symbol == currentCurrency
     );
 
     return (
