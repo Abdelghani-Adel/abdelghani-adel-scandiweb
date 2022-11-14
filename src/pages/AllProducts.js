@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import CategoryName from "../components/CategoryName/CategoryName";
 import ProductsList from "../components/ProductsList/ProductsList";
 import { fetchCategory } from "../helper/fetchAPI";
-import { fetchProducts, productsActions } from "../redux/slices/productsSlice";
 
 class AllProducts extends Component {
   constructor(props) {

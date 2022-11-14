@@ -2,17 +2,18 @@
 /* ////////////////////////     NAVBAR      ////////////////////// */
 /* /////////////////////////////////////////////////////////////// */
 .nav-bar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 7vh;
-  width: 90vw;
-
   position: fixed;
   top: 0;
+  height: 7vh; /* because it's fixed positioned */
+  width: 90vw;
+
+  display: flex;
+  justify-content: space-between;
+
   z-index: 2;
   background-color: #fff;
 }
+
 .nav-list {
   display: flex;
 }
@@ -24,6 +25,13 @@
   color: #5ece7b;
   border-bottom: 1px solid #5ece7b;
 }
+
+.logo {
+  width: 30px;
+  display: flex;
+  align-items: center;
+}
+
 .nav-options {
   display: flex;
   align-items: center;
@@ -57,19 +65,21 @@
 /* ////////////////////////  Currency Selector   ////////////////////// */
 .currency-selector {
   position: relative;
-  display: flex;
-  align-items: center;
   font-weight: 500;
 }
 .current-currency {
   margin: 0;
   padding: 0;
+
+  /* not all options are the same width, 
+  when changing there was an unwanted behaviour in the flex navbar */
+  width: 10px;
   cursor: pointer;
 }
 .currency-list {
   position: absolute;
   left: 0;
-  top: 80%;
+  top: 90%;
 
   width: max-content;
   box-shadow: rgba(149, 157, 165, 0.397) 0px 8px 24px;
@@ -94,6 +104,8 @@
   font-size: 2rem;
   text-transform: capitalize;
   position: relative;
+  margin: 3rem;
+  font-weight: 500;
 }
 
 /* ////////////////////////  Content Area  ////////////////////// */
@@ -244,8 +256,6 @@
   display: flex;
   align-items: center;
   margin: 3rem;
-
-  font-weight: 500;
 }
 
 .current-selected {
@@ -257,10 +267,10 @@
 .drop-select .options {
   position: absolute;
   left: 0;
-  top: 80%;
+  top: 100%;
 
   width: max-content;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(149, 157, 165, 0.253) 0px 8px 24px;
 }
 .drop-select .option {
   padding: 0.5em 1em;

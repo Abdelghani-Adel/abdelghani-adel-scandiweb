@@ -1,14 +1,16 @@
 import React from "react";
-import NavLink from "./NavILink";
+import { NavLink } from "react-router-dom";
 
 class NavList extends React.Component {
-  state = {};
   render() {
     const { links } = this.props;
+
     return (
       <ul className="nav-list">
         {links.map((link) => (
-          <NavLink key={Math.random()} title={link} />
+          <NavLink to={`/${link}`} key={link} className="nav-link">
+            {link.toUpperCase()}
+          </NavLink>
         ))}
       </ul>
     );

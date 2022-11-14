@@ -90,3 +90,44 @@ export const fetchProduct = async (id) => {
 
   return product;
 };
+
+export const fetchCategories = async () => {
+  const response = await fetch("http://localhost:4000", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      query: `
+             query {
+              categories {
+                name
+              }
+            }
+          `,
+    }),
+  });
+
+  const data = await response.json();
+  const categories = data.data.categories;
+  return categories;
+};
+
+export const fetchCurrencies = async () => {
+  const response = await fetch("http://localhost:4000", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      query: `
+             query {
+              currencies {
+                label
+                symbol
+              }
+            }
+          `,
+    }),
+  });
+
+  const data = await response.json();
+  const currencies = data.data.currencies;
+  return currencies;
+};

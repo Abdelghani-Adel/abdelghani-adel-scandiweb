@@ -7,10 +7,6 @@ const findItem = (state, product) => {
     (price) => price.currency.symbol === state.currentCurrency
   );
 
-  // if (Object.keys(product.attributesValues).length === 0) {
-  //   foundProduct = product;
-  //   index = state.items.findIndex((element) => element.id === product.id);
-  // }
   try {
     index = state.items.findIndex((element) => {
       if (element.id === product.id) {
@@ -171,13 +167,13 @@ const cartSlice = createSlice({
         totalAmount: totalAmount,
       };
     },
-    togglePortal: (state, action) => {
+    togglePortal: (state) => {
       return {
         ...state,
         cartIsShown: !state.cartIsShown,
       };
     },
-    closePortal: (state, action) => {
+    closePortal: (state) => {
       return {
         ...state,
         cartIsShown: false,

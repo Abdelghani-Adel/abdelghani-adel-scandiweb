@@ -30,7 +30,7 @@ class ClothesProducts extends Component {
       <>
         {this.state.products && (
           <div>
-            <h3>{this.state.categoryName}</h3>
+            <p className="category-name">{this.state.categoryName}</p>
             <ProductsList products={this.state.products} />
           </div>
         )}

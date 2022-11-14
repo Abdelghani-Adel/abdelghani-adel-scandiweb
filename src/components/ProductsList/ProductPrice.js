@@ -21,7 +21,7 @@ class ProductPrice extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  currentCurrency: state.currency.currentCurrency,
+  currentCurrency: state.cart.currentCurrency,
 });
 
 export default connect(mapStateToProps)(ProductPrice);

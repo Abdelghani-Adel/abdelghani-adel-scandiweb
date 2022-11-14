@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import Currency from "./Currency";
+import CurrencySelect from "./CurrencySelect/CurrencySelect";
 import NavCart from "./NavCart";
 
 class NavOptions extends Component {
-  state = {};
   render() {
     return (
       <ul className="nav-options">
-        <Currency />
+        <CurrencySelect />
         <NavCart />
       </ul>
     );
