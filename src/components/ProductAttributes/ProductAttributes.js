@@ -21,7 +21,7 @@ class ProductAttributes extends Component {
     return (
       <div className="product-attributes">
         {attributes.map((attribute) => (
-          <div key={Math.random()}>
+          <div key={Math.random()} className="attribute-wrapper">
             <p className="attribute-title">{attribute.name}:</p>
 
             <div className="attribute-options">

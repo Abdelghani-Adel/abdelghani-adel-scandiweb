@@ -38,14 +38,7 @@ class ProductPage extends Component {
     this.setState({ selectedPhoto: e });
   };
 
-  // Handling active class on color options
-  selectColor = (e) => {
-    const colors = document.querySelectorAll(".swatch-option");
-    [...colors].forEach((color) => color.classList.remove("active"));
-    e.currentTarget.classList.add("active");
-  };
-
-  // Handling active class on other attribute options
+  // Handling active class on attribute options
   selectAttribute = (e) => {
     const type = e.currentTarget.dataset.type;
     const options = document.querySelectorAll(`[data-type="${String(type)}"]`);
