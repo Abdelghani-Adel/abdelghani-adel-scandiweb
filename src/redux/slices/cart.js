@@ -1,13 +1,17 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 
 const findItem = (state, product) => {
-  let index = null;
-  let foundProduct = null;
+  let index = null; // null until the product is found
+  let foundProduct = null; // null until the product is found
   let itemPrice = product.prices.find(
     (price) => price.currency.symbol === state.currentCurrency
   );
 
+  // Try finding the product item in the cart items
+  // Checking the item's id and attributes values in case the same product
+  // is added to the cart with different attributes
   try {
+    // Defining the index
     index = state.items.findIndex((element) => {
       if (element.id === product.id) {
         if (
@@ -17,13 +21,17 @@ const findItem = (state, product) => {
           return element;
         }
 
+        // In case the item has no attributes (like air tag)
         if (Object.keys(element.attributesValues).length === 0) {
           return element;
         }
       }
     });
+
+    // Defining the found item
     foundProduct = current(state.items[index]);
   } catch (e) {}
+
   return { oldItem: foundProduct, itemIndex: index, price: itemPrice };
 };
 
@@ -39,7 +47,6 @@ const cartSlice = createSlice({
   reducers: {
     getCartFromLocalstorage(state) {
       const cart = JSON.parse(window.localStorage.getItem("cart"));
-
       return { ...state, ...cart, cartIsShown: false };
     },
     editItem(state, action) {

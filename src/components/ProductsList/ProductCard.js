@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import ProductPrice from "./ProductPrice";
 import cartIcon from "../../assets/cartWhite.png";
 import { cartActions } from "../../redux/slices/cart";

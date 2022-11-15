@@ -5,6 +5,7 @@ import ProductPrice from "../../components/ProductsList/ProductPrice";
 import PicturesList from "./PicturesList";
 import ProductAttributes from "../../components/ProductAttributes/ProductAttributes";
 import { fetchProduct } from "../../helper/fetchAPI";
+import parse from "html-react-parser";
 
 class ProductPage extends Component {
   constructor(props) {
@@ -130,10 +131,9 @@ class ProductPage extends Component {
                 )}
               </div>
 
-              <div
-                className="product-description"
-                dangerouslySetInnerHTML={{ __html: product.description }}
-              ></div>
+              <div className="product-description">
+                {parse(`${product.description}`)}
+              </div>
             </div>
           </div>
         )}
