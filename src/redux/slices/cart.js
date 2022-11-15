@@ -37,7 +37,13 @@ const cartSlice = createSlice({
     cartIsShown: false,
   },
   reducers: {
+    getCartFromLocalstorage(state) {
+      const cart = JSON.parse(window.localStorage.getItem("cart"));
+
+      return { ...state, ...cart, cartIsShown: false };
+    },
     editItem(state, action) {
+      console.log(window.localStorage.getItem("cart"));
       // Pull out needed information of the old existed item in the cart
       const { oldItem, itemIndex, price } = findItem(state, action.payload);
 
@@ -62,13 +68,18 @@ const cartSlice = createSlice({
       let updatedItems = [...state.items];
       updatedItems[itemIndex] = { ...newItem };
 
-      // Returning the new state
-      return {
+      const newState = {
         ...state,
         items: updatedItems,
         itemsAmount: updatedItemsAmount,
         totalAmount: updatedTotalAmount,
       };
+
+      // Storing the cart to local state in the browser
+      window.localStorage.setItem("cart", JSON.stringify(newState));
+
+      // Returning the new state
+      return newState;
     },
     removeItem(state, action) {
       // Pull out the needed information
@@ -88,12 +99,19 @@ const cartSlice = createSlice({
       const updatedTotalAmount = state.totalAmount - price.amount;
 
       // Returning the new state after deletion
-      return {
+
+      const newState = {
         ...state,
         items: updatedItems,
         itemsAmount: updatedItemsAmount,
         totalAmount: updatedTotalAmount,
       };
+
+      // Storing the cart to local state in the browser
+      window.localStorage.setItem("cart", JSON.stringify(newState));
+
+      // Returning the new state
+      return newState;
     },
     addItem(state, action) {
       // Checking if the item is already added to cart before
@@ -132,12 +150,18 @@ const cartSlice = createSlice({
         updatedItems = state.items.concat(newItem);
       }
 
-      return {
+      const newState = {
         ...state,
         items: updatedItems,
         totalAmount: updatedTotalAmount,
         itemsAmount: updatedItemsAmount,
       };
+
+      // Storing the cart to local state in the browser
+      window.localStorage.setItem("cart", JSON.stringify(newState));
+
+      // Returning the new state
+      return newState;
     },
     changeCurrency: (state, action) => {
       let updatedItems = [];
@@ -159,12 +183,18 @@ const cartSlice = createSlice({
         updatedItems.push(newItem);
       });
 
-      return {
+      const newState = {
         ...state,
         items: updatedItems,
         currentCurrency: newCurrency,
         totalAmount: newTotalAmount,
       };
+
+      // Storing the cart to local state in the browser
+      window.localStorage.setItem("cart", JSON.stringify(newState));
+
+      // Returning the new state
+      return newState;
     },
     togglePortal: (state) => {
       return {

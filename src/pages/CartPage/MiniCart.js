@@ -37,9 +37,12 @@ class MiniCart extends Component {
             view bag
           </Link>
 
-          <button onClick={closePortal} className="checkout">
+          <Link to="/cart" className="checkout" onClick={closePortal}>
             checkout
-          </button>
+          </Link>
+
+          {/* The functionality of the checkout button is not described in the figma file or in the FAQ page */}
+          {/* So, I made it the same functionality of view bag button which will navigate the user to the cart page */}
         </div>
       </div>
     );

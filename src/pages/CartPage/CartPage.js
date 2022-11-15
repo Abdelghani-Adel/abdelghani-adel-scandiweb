@@ -6,6 +6,13 @@ class CartPage extends Component {
   constructor(props) {
     super(props);
   }
+
+  orderHandler = () => {
+    // The functionality of the order button is not specified
+    // So, I'm just logging the cart items to the console
+    console.log(this.props.cart.items);
+  };
+
   render() {
     const currentCurrency = this.props.cart.currentCurrency;
     const itemsAmount = this.props.cart.itemsAmount;
@@ -35,7 +42,9 @@ class CartPage extends Component {
               </p>
             </div>
           </div>
-          <button className="order-btn">order</button>
+          <button className="order-btn" onClick={this.orderHandler}>
+            order
+          </button>
         </div>
       </div>
     );

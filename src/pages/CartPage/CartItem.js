@@ -81,7 +81,7 @@ class CartItem extends Component {
             </button>
           </span>
           <div className="cart-item--pic">
-            <img src={item.gallery[this.state.viewdPic]} alt="" />
+            <img src={item.gallery[this.state.viewdPic]} alt="Product Image" />
             {item.gallery.length > 1 && (
               <div className="arrows">
                 <span className="left-arrow" onClick={showPrevPic}>{`<`}</span>

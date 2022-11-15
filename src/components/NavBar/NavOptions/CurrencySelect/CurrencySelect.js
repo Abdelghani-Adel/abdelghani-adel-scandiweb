@@ -66,7 +66,7 @@ class CurrencySelect extends Component {
         <li className="nav-option currency-selector">
           <p className="current-currency" onClick={this.toggleOptions}>
             <span>{this.props.currentCurrency}</span>
-            <img src={arrowDown ? downArrow : upArrow} />
+            <img src={arrowDown ? downArrow : upArrow} alt="Arrow" />
           </p>
 
           {this.state.listIsShown && (
