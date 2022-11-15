@@ -32,19 +32,23 @@ class CartItem extends Component {
       // Deciding the action to be performed
       action === "+" ? updatedItem.amount++ : updatedItem.amount--;
 
+      // Dispatching
       this.props.dispatch(cartActions.editItem(updatedItem));
     };
 
-    const nextPic = () => {
+    // Change image handlers
+    const showNextPic = () => {
       const length = item.gallery.length;
+      // start over if the current pic is the last one
       if (this.state.viewdPic === length - 1) {
         this.setState({ viewdPic: 0 });
         return;
       }
       this.setState({ viewdPic: this.state.viewdPic + 1 });
     };
-    const prevPic = () => {
+    const showPrevPic = () => {
       const length = item.gallery.length;
+      // start from the end of the list if the current image is the first one
       if (this.state.viewdPic === 0) {
         this.setState({ viewdPic: length - 1 });
         return;
@@ -80,8 +84,8 @@ class CartItem extends Component {
             <img src={item.gallery[this.state.viewdPic]} alt="" />
             {item.gallery.length > 1 && (
               <div className="arrows">
-                <span className="left-arrow" onClick={prevPic}>{`<`}</span>
-                <span className="right-arrow" onClick={nextPic}>{`>`}</span>
+                <span className="left-arrow" onClick={showPrevPic}>{`<`}</span>
+                <span className="right-arrow" onClick={showNextPic}>{`>`}</span>
               </div>
             )}
           </div>

@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import ProductAttributes from "../../components/ProductAttributes/ProductAttributes";
-import { cartActions } from "../../redux/slices/cart";
 import CartItemsList from "./CartItemsList";
 
 class CartPage extends Component {
@@ -9,31 +7,14 @@ class CartPage extends Component {
     super(props);
   }
   render() {
-    const changeAmount = (e) => {
-      const id = e.currentTarget.dataset.id;
-      const index = e.currentTarget.dataset.index;
-      const action = e.currentTarget.dataset.action;
-
-      let item = this.props.cart.items[index];
-
-      if (item.amount == 1 && action === "-") {
-        this.props.dispatch(cartActions.removeItem(item));
-        return;
-      }
-      let updatedItem = { ...item };
-
-      action === "+" ? updatedItem.amount++ : updatedItem.amount--;
-
-      const payload = {
-        oldItem: item,
-        newItem: updatedItem,
-      };
-      this.props.dispatch(cartActions.editItem(payload));
-    };
+    const currentCurrency = this.props.cart.currentCurrency;
+    const itemsAmount = this.props.cart.itemsAmount;
+    const totalAmount = this.props.cart.totalAmount;
+    const tax = (this.props.cart.totalAmount * 21) / 100;
 
     return (
       <div className="cart-page">
-        <h2>Cart</h2>
+        <h2 className="page-title">Cart</h2>
 
         <CartItemsList items={this.props.cart.items} />
 
@@ -46,16 +27,11 @@ class CartPage extends Component {
             </div>
             <div className="right">
               <p>
-                {this.props.cart.currentCurrency}{" "}
-                {((this.props.cart.totalAmount * 21) / 100).toFixed(2)}
+                {currentCurrency} {tax.toFixed(2)}
               </p>
-              <p>{this.props.cart.itemsAmount}</p>
+              <p>{itemsAmount}</p>
               <p>
-                {this.props.cart.currentCurrency}{" "}
-                {(
-                  this.props.cart.totalAmount +
-                  (this.props.cart.totalAmount * 21) / 100
-                ).toFixed(2)}
+                {currentCurrency} {(totalAmount + tax).toFixed(2)}
               </p>
             </div>
           </div>

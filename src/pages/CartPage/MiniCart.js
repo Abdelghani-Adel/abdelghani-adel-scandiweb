@@ -10,8 +10,10 @@ class MiniCart extends Component {
   render() {
     const items = this.props.cart.items;
     const itemsAmount = this.props.cart.itemsAmount;
+    const tax = (this.props.cart.totalAmount * 21) / 100;
     const totalAmount = this.props.cart.totalAmount;
     const currency = this.props.cart.currentCurrency;
+    const closePortal = this.props.closePortal;
 
     return (
       <div className="mini-cart">
@@ -31,11 +33,12 @@ class MiniCart extends Component {
         </div>
 
         <div className="buttons">
-          <button onClick={this.props.closePortal} className="view-bag">
-            <Link to="/cart">VIEW BAG</Link>
-          </button>
-          <button onClick={this.props.closePortal} className="checkout">
-            Checkout
+          <Link to="/cart" className="view-bag" onClick={closePortal}>
+            view bag
+          </Link>
+
+          <button onClick={closePortal} className="checkout">
+            checkout
           </button>
         </div>
       </div>
