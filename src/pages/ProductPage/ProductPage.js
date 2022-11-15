@@ -56,19 +56,22 @@ class ProductPage extends Component {
       }
       // Collecting the selected attributes using the the active class that being added when selecting the attribute
       // So, I select all elements that have the 2 classes which only are added if the attribute is selected
-      const attributes = document.querySelectorAll(".attribute-option.active");
+      const attributesHTMLElements = document.querySelectorAll(
+        ".attribute-option.active"
+      );
       let attributesValues = {};
       // Looping through the selected attributes elements to add them to the attributesValues object
-      [...attributes].forEach((attribute) => {
+      [...attributesHTMLElements].forEach((attribute) => {
         // There are 2 data attributes 'data-type | data-value' are added with the values to the html elements
-        // So, I access the html element first, then I access its dataset values to build my attribute object
+        // So, I access the html element first, then I access its dataset values to build my attributes object
         const attributeType = attribute.dataset.type.replaceAll(" ", "");
         const attributeValue = attribute.dataset.value;
         // Adding the attribute object to the attributeValues object
         attributesValues[attributeType] = attributeValue;
       });
 
-      if ([...attributes].length < product.attributes.length) {
+      // Checking if all the attributes are selected
+      if ([...attributesHTMLElements].length < product.attributes.length) {
         this.setState({ ...this.state, validOrder: false });
         return;
       }
@@ -111,7 +114,7 @@ class ProductPage extends Component {
                 selectAttribute={this.selectAttribute}
               />
 
-              <div className="product-price">
+              <div>
                 <p className="attribute-title">PRICE:</p>
                 <ProductPrice prices={product.prices} />
               </div>
@@ -121,9 +124,9 @@ class ProductPage extends Component {
                   {product.inStock ? "Add To Cart" : "Out of stock"}
                 </button>
                 {this.state.validOrder == false && (
-                  <span className="valid-error">
-                    Options need to be choosen!
-                  </span>
+                  <p className="valid-error">
+                    Please, Choose options before adding product to the cart!
+                  </p>
                 )}
               </div>
 

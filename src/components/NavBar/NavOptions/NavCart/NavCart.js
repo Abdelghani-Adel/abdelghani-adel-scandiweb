@@ -11,7 +11,7 @@ class NavCart extends Component {
   }
 
   render() {
-    const cartIsShown = this.props.cart.cartIsShown; // from redux store
+    const cartIsShown = this.props.cart.cartIsShown;
     const amount = this.props.cart.itemsAmount;
 
     const closePortal = () => {

@@ -11,13 +11,8 @@ class CartItemsList extends Component {
 
     return (
       <div className="cart-items-list">
-        {items.map((item, index) => (
-          <CartItem
-            key={Math.random()}
-            item={item}
-            index={index}
-            items={items}
-          />
+        {items.map((item) => (
+          <CartItem key={Math.random()} item={item} />
         ))}
       </div>
     );

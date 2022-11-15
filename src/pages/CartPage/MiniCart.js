@@ -12,10 +12,11 @@ class MiniCart extends Component {
     const itemsAmount = this.props.cart.itemsAmount;
     const totalAmount = this.props.cart.totalAmount;
     const currency = this.props.cart.currentCurrency;
+
     return (
       <div className="mini-cart">
         <p className="title">
-          <span>My Bag: </span>
+          <span className="my-bag">My Bag : </span>
           <span>{itemsAmount} items</span>
         </p>
 

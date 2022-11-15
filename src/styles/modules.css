@@ -118,7 +118,10 @@
 .attribute-title {
   margin-bottom: 0.3em;
   font-weight: 700;
+  font-size: 1.2em;
   text-transform: uppercase;
+
+  font-family: "Roboto Condensed", sans-serif;
 }
 
 .attribute-options {
@@ -148,6 +151,7 @@
   min-width: 10%;
   text-align: center;
   cursor: default;
+  font-size: 1em;
 }
 .txt-attribute.active {
   background-color: #000;
@@ -289,14 +293,21 @@
 }
 
 .product-info .product-brand {
-  font-size: 1.5rem;
+  font-size: 30px;
   font-weight: 600;
   margin-bottom: 0.2em;
 }
 
 .product-info .product-name {
+  font-size: 30px;
   font-weight: 400;
   margin-bottom: 2rem;
+}
+
+.product-info .product-price {
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
 }
 
 .product-info .button-wrapper button {
@@ -306,6 +317,7 @@
   color: #fff;
   text-transform: uppercase;
   padding: 1em;
+  font-size: 16px;
 }
 .product-info .button-wrapper button:hover {
   background-color: #4da364;
@@ -318,10 +330,13 @@
 
 .product-info .valid-error {
   color: #f00;
+  margin-top: 0.5em;
+  font-weight: 500;
 }
 
 .product-info .product-description {
   margin-top: 1rem;
+  font-size: 16px;
 }
 
 /* /////////////////////////////////////////////////////////////// */
@@ -346,9 +361,12 @@
   background-color: #fff;
 }
 
-.mini-cart .total {
-  display: flex;
-  justify-content: space-between;
+.mini-cart .title {
+  font-size: 1.6em;
+  font-weight: 500;
+}
+.mini-cart .title .my-bag {
+  font-weight: 700;
 }
 
 .cart-items-list {
@@ -356,6 +374,8 @@
 }
 
 .mini-cart .total {
+  display: flex;
+  justify-content: space-between;
   font-size: 1rem;
   font-weight: 700;
   margin-top: 1em;
@@ -384,7 +404,7 @@
 /* ////////////////////////    CART ITEM    ////////////////////// */
 .cart-item {
   margin: 0;
-  padding: 0.8em;
+  padding: 1em 0;
   border-top: 1px solid rgb(187, 186, 186);
   display: flex;
   justify-content: space-between;
@@ -392,14 +412,21 @@
 
 .cart-item .item-brand {
   font-weight: 600;
+  font-size: 1.3em;
+  margin-bottom: 0.2em;
 }
 
 .cart-item .item-name {
-  font-weight: 400;
+  font-weight: 300;
+  font-size: 1.3em;
 }
 
 .cart-item .item-price {
   font-weight: 700;
+  font-size: 1.3em;
+}
+
+.cart-item .product-attributes {
 }
 
 .amount-controls-wrapper {

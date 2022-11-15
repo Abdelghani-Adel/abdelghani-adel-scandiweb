@@ -8,26 +8,28 @@ class CartItem extends Component {
     super(props);
   }
   state = {
-    viewdPic: 0,
+    viewdPic: 0, // Controlling displaying arrows on the thumbnail pic
   };
+
   render() {
-    const { item, index, items } = this.props;
+    const { item } = this.props;
     const currency = item.price.currency.symbol;
     const price = item.price.amount;
 
     const changeAmount = (e) => {
-      const id = e.currentTarget.dataset.id;
-      const index = e.currentTarget.dataset.index;
+      // Getting the action from data set on the html element - or +
       const action = e.currentTarget.dataset.action;
 
-      const item = items[index];
-
+      // Remove the item from the cart if the amount = 1 and the action is -
       if (item.amount == 1 && action === "-") {
         this.props.dispatch(cartActions.removeItem(item));
         return;
       }
+
+      // Making a copy from the item to be edited and dispatched to the cart
       let updatedItem = { ...item };
 
+      // Deciding the action to be performed
       action === "+" ? updatedItem.amount++ : updatedItem.amount--;
 
       const payload = {
@@ -70,23 +72,11 @@ class CartItem extends Component {
 
         <div className="amount-controls-wrapper">
           <span className="plus-minus">
-            <button
-              className="plus"
-              data-id={item.id}
-              data-index={index}
-              data-action="+"
-              onClick={changeAmount}
-            >
+            <button className="plus" data-action="+" onClick={changeAmount}>
               +
             </button>
             <span className="amount">{item.amount}</span>
-            <button
-              className="minus"
-              data-id={item.id}
-              data-index={index}
-              data-action="-"
-              onClick={changeAmount}
-            >
+            <button className="minus" data-action="-" onClick={changeAmount}>
               -
             </button>
           </span>
