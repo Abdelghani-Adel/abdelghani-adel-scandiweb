@@ -32,11 +32,7 @@ class CartItem extends Component {
       // Deciding the action to be performed
       action === "+" ? updatedItem.amount++ : updatedItem.amount--;
 
-      const payload = {
-        oldItem: item,
-        newItem: updatedItem,
-      };
-      this.props.dispatch(cartActions.editItem(payload));
+      this.props.dispatch(cartActions.editItem(updatedItem));
     };
 
     const nextPic = () => {
