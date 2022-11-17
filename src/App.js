@@ -1,17 +1,19 @@
-import { Route, Routes, Navigate } from "react-router-dom";
-import "./styles/index.css";
+import { Navigate, Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import AllProducts from "./pages/AllProducts";
 import CartPage from "./pages/CartPage/CartPage";
 import ClothesProducts from "./pages/ClothesProducts";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import TechProducts from "./pages/TechProducts";
-
+import "./styles/index.css";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { cartActions } from "./redux/slices/cart";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+  }
   componentDidMount() {
     this.props.dispatch(cartActions.getCartFromLocalstorage());
   }

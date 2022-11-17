@@ -1,13 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { fetchCategories } from "../../helper/fetchAPI";
+import { LoadCategories } from "../../graphql/Queries";
 
 class NavList extends React.Component {
   state = { categoryNames: null };
 
   componentDidMount() {
     const fetchAPI = async () => {
-      const categories = await fetchCategories();
+      const categories = await LoadCategories();
 
       // Pull out the names of categories to be stored in local state
       let categoryNames = [];

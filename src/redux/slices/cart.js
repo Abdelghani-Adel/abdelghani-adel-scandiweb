@@ -50,7 +50,6 @@ const cartSlice = createSlice({
       return { ...state, ...cart, cartIsShown: false };
     },
     editItem(state, action) {
-      console.log(window.localStorage.getItem("cart"));
       // Pull out needed information of the old existed item in the cart
       const { oldItem, itemIndex, price } = findItem(state, action.payload);
 

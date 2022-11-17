@@ -1,11 +1,11 @@
+import parse from "html-react-parser";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { cartActions } from "../../redux/slices/cart";
-import ProductPrice from "../../components/ProductsList/ProductPrice";
-import PicturesList from "./PicturesList";
 import ProductAttributes from "../../components/ProductAttributes/ProductAttributes";
-import { fetchProduct } from "../../helper/fetchAPI";
-import parse from "html-react-parser";
+import ProductPrice from "../../components/ProductsList/ProductPrice";
+import { LoadSingleProduct } from "../../graphql/Queries";
+import { cartActions } from "../../redux/slices/cart";
+import PicturesList from "./PicturesList";
 
 class ProductPage extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class ProductPage extends Component {
     // Fetching the product from the API using the product ID
     // Store the product in the local state to be used in rendering
     const fetchApi = async () => {
-      const product = await fetchProduct(productID);
+      const product = await LoadSingleProduct(productID);
 
       this.setState({
         ...this.state,
@@ -142,8 +142,4 @@ class ProductPage extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  products: state.products,
-});
-
-export default connect(mapStateToProps)(ProductPage);
+export default connect()(ProductPage);

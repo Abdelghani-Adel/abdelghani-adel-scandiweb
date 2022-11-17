@@ -3,14 +3,15 @@ import { connect } from "react-redux";
 import CartItemsList from "./CartItemsList";
 
 class CartPage extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   orderHandler = () => {
     // The functionality of the order button is not specified
-    // So, I'm just logging the cart items to the console
-    console.log(this.props.cart.items);
+    // So, I'm just logging the order object to the console
+    const order = {
+      items: this.props.cart.items,
+      totalAmount: this.props.cart.totalAmount,
+      currency: this.props.cart.currentCurrency,
+    };
+    console.log(order);
   };
 
   render() {

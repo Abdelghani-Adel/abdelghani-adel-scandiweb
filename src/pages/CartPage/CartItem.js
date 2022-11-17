@@ -4,11 +4,8 @@ import ProductAttributes from "../../components/ProductAttributes/ProductAttribu
 import { cartActions } from "../../redux/slices/cart";
 
 class CartItem extends Component {
-  constructor(props) {
-    super(props);
-  }
   state = {
-    viewdPic: 0, // Controlling displaying arrows on the thumbnail pic
+    viewedPic: 0, // Controlling displaying arrows on the thumbnail pic
   };
 
   render() {
@@ -21,7 +18,7 @@ class CartItem extends Component {
       const action = e.currentTarget.dataset.action;
 
       // Remove the item from the cart if the amount = 1 and the action is -
-      if (item.amount == 1 && action === "-") {
+      if (item.amount === 1 && action === "-") {
         this.props.dispatch(cartActions.removeItem(item));
         return;
       }
@@ -40,20 +37,20 @@ class CartItem extends Component {
     const showNextPic = () => {
       const length = item.gallery.length;
       // start over if the current pic is the last one
-      if (this.state.viewdPic === length - 1) {
-        this.setState({ viewdPic: 0 });
+      if (this.state.viewedPic === length - 1) {
+        this.setState({ viewedPic: 0 });
         return;
       }
-      this.setState({ viewdPic: this.state.viewdPic + 1 });
+      this.setState({ viewedPic: this.state.viewedPic + 1 });
     };
     const showPrevPic = () => {
       const length = item.gallery.length;
       // start from the end of the list if the current image is the first one
-      if (this.state.viewdPic === 0) {
-        this.setState({ viewdPic: length - 1 });
+      if (this.state.viewedPic === 0) {
+        this.setState({ viewedPic: length - 1 });
         return;
       }
-      this.setState({ viewdPic: this.state.viewdPic - 1 });
+      this.setState({ viewedPic: this.state.viewedPic - 1 });
     };
 
     return (
@@ -81,7 +78,7 @@ class CartItem extends Component {
             </button>
           </span>
           <div className="cart-item--pic">
-            <img src={item.gallery[this.state.viewdPic]} alt="Product Image" />
+            <img src={item.gallery[this.state.viewedPic]} alt="Product Image" />
             {item.gallery.length > 1 && (
               <div className="arrows">
                 <span className="left-arrow" onClick={showPrevPic}>{`<`}</span>

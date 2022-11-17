@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import ProductsList from "../components/ProductsList/ProductsList";
-import { fetchCategory } from "../helper/fetchAPI";
+import { LoadProducts } from "../graphql/Queries";
 
 class TechProducts extends Component {
   constructor(props) {
@@ -12,12 +11,11 @@ class TechProducts extends Component {
 
   componentDidMount() {
     const fetchapi = async () => {
-      const { products, categoryName } = await fetchCategory("tech");
+      const products = await LoadProducts("tech");
 
       this.setState({
         ...this.state,
         products: products,
-        categoryName: categoryName,
       });
     };
 
@@ -27,15 +25,11 @@ class TechProducts extends Component {
   render() {
     return (
       <div>
-        <p className="category-name">{this.state.categoryName}</p>
+        <p className="category-name">Tech</p>
         <ProductsList products={this.state.products} />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  products: state.products,
-});
-
-export default connect(mapStateToProps)(TechProducts);
+export default TechProducts;

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import ProductsList from "../components/ProductsList/ProductsList";
-
-import { fetchCategory } from "../helper/fetchAPI";
+import { LoadProducts } from "../graphql/Queries";
 
 class ClothesProducts extends Component {
   constructor(props) {
@@ -13,12 +11,11 @@ class ClothesProducts extends Component {
 
   componentDidMount() {
     const fetchapi = async () => {
-      const { products, categoryName } = await fetchCategory("clothes");
+      const products = await LoadProducts("clothes");
 
       this.setState({
         ...this.state,
         products: products,
-        categoryName: categoryName,
       });
     };
 
@@ -30,7 +27,7 @@ class ClothesProducts extends Component {
       <>
         {this.state.products && (
           <div>
-            <p className="category-name">{this.state.categoryName}</p>
+            <p className="category-name">Clothes</p>
             <ProductsList products={this.state.products} />
           </div>
         )}
@@ -39,8 +36,4 @@ class ClothesProducts extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  products: state.products,
-});
-
-export default connect(mapStateToProps)(ClothesProducts);
+export default ClothesProducts;

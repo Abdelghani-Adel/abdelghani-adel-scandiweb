@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import { Link, Navigate } from "react-router-dom";
-import ProductPrice from "./ProductPrice";
-import cartIcon from "../../assets/cartWhite.png";
-import { cartActions } from "../../redux/slices/cart";
 import { connect } from "react-redux";
-import AddFromPLP from "./AddFromPLP";
+import { Navigate } from "react-router-dom";
+import { cartActions } from "../../redux/slices/cart";
 import ProductImage from "./ProductImage";
+import ProductPrice from "./ProductPrice";
 
 class ProductCard extends Component {
   constructor(props) {

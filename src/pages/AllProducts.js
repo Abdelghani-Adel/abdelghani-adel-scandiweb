@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import CategoryFilter from "../components/CategoryFilter/CategoryFilter";
 import ProductsList from "../components/ProductsList/ProductsList";
-import { fetchCategory } from "../helper/fetchAPI";
+import { LoadProducts } from "../graphql/Queries";
 
 class AllProducts extends Component {
   constructor(props) {
@@ -10,10 +10,10 @@ class AllProducts extends Component {
   }
 
   fetchProducts = async (productsFilter = "all") => {
-    const { products, categoryName } = await fetchCategory(productsFilter);
+    const products = await LoadProducts(productsFilter);
+
     this.setState({
       products: products,
-      categoryName: categoryName,
     });
   };
 

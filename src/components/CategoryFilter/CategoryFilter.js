@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { fetchCategories } from "../../helper/fetchAPI";
+import { LoadCategories } from "../../graphql/Queries";
 import OutsideAlerter from "../OutsideAlerter/OutsideAlerter";
 
 class CategoryFilter extends Component {
@@ -16,7 +16,7 @@ class CategoryFilter extends Component {
   // Will be used to render the category options list
   componentDidMount() {
     const fetchAPI = async () => {
-      const categories = await fetchCategories();
+      const categories = await LoadCategories();
 
       let categoryNames = [];
       categories.map((category) => categoryNames.push(category.name));
@@ -69,7 +69,6 @@ class CategoryFilter extends Component {
             {this.state.currentSelected}
           </p>
 
-          {/* Options list that only is shown based on boolean state */}
           {this.state.optionsIsShown && (
             <ul className="options">
               {this.state.categories.map((option) => (
