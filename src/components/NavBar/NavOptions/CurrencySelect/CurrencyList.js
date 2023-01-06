@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 
 class CurrencyList extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { currencies, currentCurrency, changeCurrency } = this.props;
     return (

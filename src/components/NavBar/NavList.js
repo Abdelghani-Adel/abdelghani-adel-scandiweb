@@ -24,11 +24,9 @@ class NavList extends React.Component {
       <>
         {this.state.categoryNames && (
           <ul className="nav-list">
-            {this.state.categoryNames.map((link) => (
-              <NavLink to={`/${link}`} key={link} className="nav-link">
-                {link.toUpperCase()}
-              </NavLink>
-            ))}
+            <NavLink to="/all" className="nav-link">
+              All
+            </NavLink>
           </ul>
         )}
       </>

@@ -8,10 +8,6 @@ import { cartActions } from "../../redux/slices/cart";
 import PicturesList from "./PicturesList";
 
 class ProductPage extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     selectedPhoto: 0, // Control which picture is shown in the main area
     validOrder: null,
@@ -102,7 +98,7 @@ class ProductPage extends Component {
             <div className="selected-photo">
               <img
                 src={product.gallery[this.state.selectedPhoto]}
-                alt="Product Image"
+                alt="Product"
               />
             </div>
 
@@ -124,7 +120,7 @@ class ProductPage extends Component {
                 <button onClick={addToCartHandler} disabled={!product.inStock}>
                   {product.inStock ? "Add To Cart" : "Out of stock"}
                 </button>
-                {this.state.validOrder == false && (
+                {this.state.validOrder === false && (
                   <p className="valid-error">
                     Please, Choose options before adding product to the cart!
                   </p>

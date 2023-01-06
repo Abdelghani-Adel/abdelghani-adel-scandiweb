@@ -59,7 +59,7 @@ class CartItem extends Component {
           <p className="item-brand">{item.brand}</p>
           <p className="item-name">{item.name}</p>
           <p className="item-price">
-            {currency} {price}
+            {currency} {price.toFixed(2)}
           </p>
           <ProductAttributes
             attributes={item.attributes}
@@ -78,7 +78,7 @@ class CartItem extends Component {
             </button>
           </span>
           <div className="cart-item--pic">
-            <img src={item.gallery[this.state.viewedPic]} alt="Product Image" />
+            <img src={item.gallery[this.state.viewedPic]} alt="Product" />
             {item.gallery.length > 1 && (
               <div className="arrows">
                 <span className="left-arrow" onClick={showPrevPic}>{`<`}</span>

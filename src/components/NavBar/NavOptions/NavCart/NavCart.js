@@ -6,10 +6,6 @@ import { cartActions } from "../../../../redux/slices/cart";
 import Portal from "../../../Portal/portal";
 
 class NavCart extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const cartIsShown = this.props.cart.cartIsShown;
     const amount = this.props.cart.itemsAmount;
@@ -34,7 +30,7 @@ class NavCart extends Component {
         <li className="nav-option nav-cart" onClick={toggleMinicart}>
           <div>
             <img src={CartIcon} alt="Cart Icon" />
-            <span className="nav-cart-amount">{amount}</span>
+            {amount > 0 && <span className="nav-cart-amount">{amount}</span>}
           </div>
         </li>
       </>

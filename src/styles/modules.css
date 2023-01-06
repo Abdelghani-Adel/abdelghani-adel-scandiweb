@@ -433,6 +433,10 @@
   color: #fff;
 }
 
+.mini-cart .arrows {
+  display: none;
+}
+
 /* ////////////////////////    CART PAGE    ////////////////////// */
 .cart-page .page-title {
   margin: 0;

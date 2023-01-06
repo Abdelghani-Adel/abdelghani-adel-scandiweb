@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 
 class PicturesList extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const { gallery, changeImageHandler } = this.props;
 
@@ -15,7 +12,7 @@ class PicturesList extends Component {
             key={Math.random()}
             onClick={changeImageHandler.bind(this, index)}
           >
-            <img src={picture} alt="Product Image" />
+            <img src={picture} alt="Product" />
           </div>
         ))}
       </div>

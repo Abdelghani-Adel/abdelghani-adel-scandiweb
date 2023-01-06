@@ -3,10 +3,6 @@ import SwatchAttribute from "./SwatchAttribute";
 import TextAttribute from "./TextAttribute";
 
 class ProductAttributes extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { attributes } = this.props;
 

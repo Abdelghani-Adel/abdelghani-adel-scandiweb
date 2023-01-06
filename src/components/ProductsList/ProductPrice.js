@@ -2,21 +2,17 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 class ProductPrice extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const currentCurrency = this.props.currentCurrency;
     const prices = this.props.prices;
 
     const price = prices.find(
-      (price) => price.currency.symbol == currentCurrency
+      (price) => price.currency.symbol === currentCurrency
     );
 
     return (
       <p className="product-price">
-        {price.currency.symbol} {price.amount}
+        {price.currency.symbol} {price.amount.toFixed(2)}
       </p>
     );
   }

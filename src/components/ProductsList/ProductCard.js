@@ -6,10 +6,6 @@ import ProductImage from "./ProductImage";
 import ProductPrice from "./ProductPrice";
 
 class ProductCard extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     navigate: null,
   };
@@ -26,14 +22,29 @@ class ProductCard extends Component {
     };
 
     const addToCartHandler = (e) => {
+      if (!product.inStock) {
+        return;
+      }
+
       // Because the parent has a click handler that will navigate the user to the PDP
       e.stopPropagation();
+
+      let attributesValues = {};
+
+      product.attributes.forEach((attribute) => {
+        const attributeType = attribute.name.replaceAll(" ", "");
+        const attributeValue = attribute.items[0].value;
+
+        attributesValues[attributeType] = attributeValue;
+      });
+
+      console.log(product);
 
       // Preparing the product object to be dispatched and stored into Redux
       const productObject = {
         amount: 1,
         ...product,
-        attributesValues: {},
+        attributesValues: attributesValues,
       };
       this.props.dispatch(cartActions.addItem(productObject));
     };

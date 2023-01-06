@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 
 class TextAttribute extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const { attribute, attributesValues, selectAttribute } = this.props;
     const items = attribute.items;

@@ -4,13 +4,10 @@ import { Link } from "react-router-dom";
 import CartItemsList from "./CartItemsList";
 
 class MiniCart extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const items = this.props.cart.items;
     const itemsAmount = this.props.cart.itemsAmount;
-    const tax = (this.props.cart.totalAmount * 21) / 100;
+    // const tax = (this.props.cart.totalAmount * 21) / 100;
     const totalAmount = this.props.cart.totalAmount;
     const currency = this.props.cart.currentCurrency;
     const closePortal = this.props.closePortal;
@@ -19,7 +16,9 @@ class MiniCart extends Component {
       <div className="mini-cart">
         <p className="title">
           <span className="my-bag">My Bag : </span>
-          <span>{itemsAmount} items</span>
+          <span>
+            {itemsAmount} {itemsAmount > 1 ? "items" : "item"}
+          </span>
         </p>
 
         <CartItemsList items={items} />

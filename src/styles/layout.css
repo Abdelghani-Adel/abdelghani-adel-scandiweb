@@ -2,3 +2,7 @@
   width: 90%;
   margin: auto;
 }
+
+.product-description ul {
+  list-style: unset;
+}

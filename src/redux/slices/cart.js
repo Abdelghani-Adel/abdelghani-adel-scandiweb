@@ -11,8 +11,7 @@ const findItem = (state, product) => {
   // Checking the item's id and attributes values in case the same product
   // is added to the cart with different attributes
   try {
-    // Defining the index
-    index = state.items.findIndex((element) => {
+    function searchIndex(element) {
       if (element.id === product.id) {
         if (
           JSON.stringify(element.attributesValues) ===
@@ -26,7 +25,9 @@ const findItem = (state, product) => {
           return element;
         }
       }
-    });
+    }
+    // Defining the index
+    index = state.items.findIndex(searchIndex);
 
     // Defining the found item
     foundProduct = current(state.items[index]);
@@ -175,8 +176,7 @@ const cartSlice = createSlice({
 
       const newCurrency = action.payload;
 
-      // Loop through all current items to change their price to the new currency
-      state.items.map((item) => {
+      function mapHandler(item) {
         // Finding the new price of the item based on the choosen currency
         const newPrice = item.prices.find(
           (price) => price.currency.symbol === newCurrency
@@ -187,7 +187,9 @@ const cartSlice = createSlice({
         const newItem = { ...item, price: newPrice };
         // Push the new item the newItems array to be returned
         updatedItems.push(newItem);
-      });
+      }
+      // Loop through all current items to change their price to the new currency
+      state.items.map(mapHandler);
 
       const newState = {
         ...state,
