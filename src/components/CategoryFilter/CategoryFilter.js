@@ -6,7 +6,7 @@ class CategoryFilter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentSelected: "all",
+      currentSelected: "",
       optionsIsShown: false,
       categories: [],
     };
@@ -22,7 +22,11 @@ class CategoryFilter extends Component {
       categories.map((category) => categoryNames.push(category.name));
 
       // Storing categories in local state
-      this.setState({ ...this.state, categories: categories });
+      this.setState({
+        ...this.state,
+        categories: categories,
+        currentSelected: categoryNames[0],
+      });
     };
 
     fetchAPI();

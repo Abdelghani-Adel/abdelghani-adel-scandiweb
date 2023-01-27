@@ -24,8 +24,8 @@ class NavList extends React.Component {
       <>
         {this.state.categoryNames && (
           <ul className="nav-list">
-            <NavLink to="/all" className="nav-link">
-              All
+            <NavLink to="/product-list" className="nav-link">
+              Products
             </NavLink>
           </ul>
         )}

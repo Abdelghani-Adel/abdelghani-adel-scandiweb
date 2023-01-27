@@ -5,11 +5,11 @@ const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export const LoadProducts = async (category = "all") => {
+export const LoadProducts = async (category) => {
   const response = await apolloClient.query({
     query: gql`
       query {
-        category(input: { title: "${category}" }) {
+        category ${category ? `(input: { title: "${category}" })` : ""} {
           name
           products {
             id

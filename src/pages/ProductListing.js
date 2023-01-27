@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import CategoryFilter from "../components/CategoryFilter/CategoryFilter";
 import ProductsList from "../components/ProductsList/ProductsList";
-import { LoadProducts } from "../graphql/Queries";
+import { LoadProducts, LoadCategories } from "../graphql/Queries";
 
-class AllProducts extends Component {
+class ProductListing extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      products: [],
+    };
   }
 
-  fetchProducts = async (productsFilter = "all") => {
+  fetchProducts = async (productsFilter) => {
     const products = await LoadProducts(productsFilter);
 
     this.setState({
@@ -22,7 +24,12 @@ class AllProducts extends Component {
   };
 
   componentDidMount() {
-    this.fetchProducts();
+    const fetchAPI = async () => {
+      const categories = await LoadCategories();
+      this.fetchProducts(categories[0].name);
+    };
+
+    fetchAPI();
   }
 
   render() {
@@ -39,4 +46,4 @@ class AllProducts extends Component {
   }
 }
 
-export default AllProducts;
+export default ProductListing;

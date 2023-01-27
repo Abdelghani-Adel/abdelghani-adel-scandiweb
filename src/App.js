@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
-import AllProducts from "./pages/AllProducts";
+import ProductListing from "./pages/ProductListing";
 import CartPage from "./pages/CartPage/CartPage";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import "./styles/index.css";
@@ -20,8 +20,8 @@ class App extends Component {
 
         <div className="content-area">
           <Routes>
-            <Route path="/" element={<Navigate to="/all" replace />} />
-            <Route path="/all" element={<AllProducts />} />
+            <Route path="/" element={<Navigate to="/product-list" replace />} />
+            <Route path="/product-list" element={<ProductListing />} />
             <Route path="/product/:id" element={<ProductPage />} />
             <Route path="/cart" element={<CartPage />} />
           </Routes>
